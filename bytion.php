@@ -52,6 +52,7 @@ class SWBCC
          *
          * @since 1.0.0
          */
+	    
         if (file_exists(SWBCC_DIR . '/shortcode/BCC_Form.php')) {
             require_once(SWBCC_DIR . '/shortcode/BCC_Form.php');
         }
@@ -81,7 +82,7 @@ class SWBCC
    * Registers the Custom Book Post Type
    *
    * A custom post type that only WordPress Admin users can manage.
-	 * Please name this custom posttype BOOKS.
+   * Please name this custom posttype BOOKS.
    * @since    1.0.0
    *
    * @return a custom post type called Book
@@ -160,9 +161,9 @@ class SWBCC
 	   * Registers the Book Category Taxonomies
 	   *
 	   * A new Taxonomy to use with the custom post type, again only Admin users
-		 *  should be able to manage. Please name your Taxonomy, BOOK CATEGORY.
+	   *  should be able to manage. Please name your Taxonomy, BOOK CATEGORY.
 	   *
-     * @since    1.0.0
+           * @since    1.0.0
 	   * @return a new Taxonomy Called Book Category
 	   **/
 
@@ -185,9 +186,9 @@ class SWBCC
 		*
 		*– A new Taxonomy to use with the custom post type,again only Admin users
 		*  should be able to manage. Please name your Taxonomy,
-		* ------ BOOK CATEGORY with a default term NON FICTION.------
-    * 
-    * @since    1.0.0
+	 	* ------ BOOK CATEGORY with a default term NON FICTION.------
+	        * 
+	        * @since    1.0.0
 		* @return adds the default term for the custom post type book
 		**/
 

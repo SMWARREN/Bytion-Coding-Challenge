@@ -3,7 +3,7 @@
  * Plugin Name:       Bytion Coding Challenge
  * Plugin URI:        http://bytion.io/
  * Description:       Create a WordPress Plugin
- * Version:           2.0.0
+ * Version:           3.0.0
  * Author:            Sean Warren
  * Author URI:        http://github.com/smwarren
  * License:           GPL-2.0+
@@ -28,7 +28,7 @@ if (!defined('WPINC'))
 // Plugin version.
 if (!defined('SWBCC_VERSION'))
 {
-    define('SWBCC_VERSION', '1.0.0');
+    define('SWBCC_VERSION', '3.0.0');
 }
 
 if (!defined('SWBCC_NAME'))

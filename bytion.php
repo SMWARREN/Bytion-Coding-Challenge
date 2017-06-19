@@ -97,8 +97,8 @@ class SWBCC
     /**
      * Creates The Menu Items
      *
-     * Administration pages where users can view
-     * submitted data from the new table.
+     * This shows a plugin menu item in the settings menu. This is needed to
+     * show the admin page.
      * @since    3.0.0
      *
      * @return Adds the a plugin menu at the top of the settings menu

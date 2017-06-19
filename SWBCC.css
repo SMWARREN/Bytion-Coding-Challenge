@@ -1,0 +1,22 @@
+div.SWBCC_TABLE > center > table {
+border-collapse: collapse;
+width: 95%;
+border: solid 1px black;
+
+}
+
+div.SWBCC_TABLE > center > table > thead > tr > th, div.SWBCC_TABLE > center > table > tbody > tr > td {
+text-align: left;
+padding: 15px;
+border-bottom: solid 1px black;
+border-right: soild 1px #f2f2f2;
+}
+
+div.SWBCC_TABLE > center > table > tbody > tr:nth-child(even){background-color: #f2f2f2}
+div.SWBCC_TABLE > center > table > tbody > tr:nth-child(odd){background-color: #FFF}
+
+
+div.SWBCC_TABLE > center > table > thead > tr > th {
+background-color: #4CAF50;
+color: white;
+}

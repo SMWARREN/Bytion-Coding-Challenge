@@ -28,7 +28,7 @@ if (!defined('WPINC'))
 // Plugin version.
 if (!defined('SWBCC_VERSION'))
 {
-    define('SWBCC_VERSION', '2.0.0');
+    define('SWBCC_VERSION', '1.0.0');
 }
 
 if (!defined('SWBCC_NAME'))
@@ -84,13 +84,94 @@ class SWBCC
             $this,
             'SWBCC_REGISTER_ADD_TERMS'
         ));
+        add_action('init', array(
+            $this,
+            'SWBCC_PLUGIN_MENU'
+        ));
+
+        wp_enqueue_style('SWBCC_STYLES', SWBCC_URL . '/SWBCC.css');
+
+
+    }
+
+    /**
+     * Creates The Menu Items
+     *
+     * Administration pages where users can view
+     * submitted data from the new table.
+     * @since    3.0.0
+     *
+     * @return Adds the a plugin menu at the top of the settings menu
+     **/
+
+    function SWBCC_PLUGIN_MENU()
+    {
+        add_options_page('SWBCC Plugin Options', 'SWBCC Plugin', 'manage_options', 'SWBCC_ADMIN', array(
+            $this,
+            'SWBCC_PLUGIN_OPTIONS'
+        ));
+    }
+
+    /**
+     * Creates an Admin Page
+     *
+     * Administration pages where users can view
+     * submitted data from the new table.
+     * @since    3.0.0
+     *
+     * @return An Admin page thats displays the data submitted data
+     **/
+
+
+    function SWBCC_PLUGIN_OPTIONS()
+    {
+        if (!current_user_can('manage_options'))
+        {
+            wp_die(__('You do not have sufficient permissions to access this page.'));
+        }
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'SWBCC';
+
+        if (isset($_GET['SWBCC_DEL']))
+        {
+            $wpdb->delete($table_name, array(
+                'ID' => $_GET['SWBCC_DEL']
+            ));
+        }
+        $bookObject = $wpdb->get_results("SELECT * FROM $table_name");
+
+        if ($bookObject)
+        {
+            echo '<div class="SWBCC_TABLE"><center><h2>The Submitted Data</h2><hr><table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Options</th>
+              </tr>
+            </thead>
+            <tbody>';
+            foreach ($bookObject as $data)
+            {
+
+                echo '<tr>
+                <td>' . $data->name . '</td>
+                <td>' . $data->email . '</td>
+                <td><a href="?page=SWBCC_ADMIN&SWBCC_DEL=' . $data->id . '"> Delete</a></td>
+              </tr>';
+
+            }
+        }
+        echo '  </tbody>
+      </table><br><h2>Add A New Book</h2><hr>' . do_shortcode('[BCCFORM]') . ' </center></div>';
     }
 
     /**
      * Creates a new table in the Wordpress Datatbase
      *
-     * A new table added to the database with a nameand email field
-     * @since    2.0.0
+     * -v2 A new table added to the database with a nameand email field
+     * -v3 Modify the plugin database table to include a field for date/time submitted
+     * @since    3.0.0
      *
      * @return a new table in the database
      **/
@@ -101,10 +182,11 @@ class SWBCC
         $charset_collate = $wpdb->get_charset_collate();
         $table_name      = $wpdb->prefix . 'SWBCC';
 
-        $sql = "CREATE TABLE IF NOT EXISTS $table_name (
+        $sql = "CREATE TABLE $table_name (
     		id mediumint(9) NOT NULL AUTO_INCREMENT,
     		name text NOT NULL,
     		email text NOT NULL,
+        date TIMESTAMP NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
     		UNIQUE KEY id (id)
     	) $charset_collate;";
 
